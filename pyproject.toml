@@ -1,0 +1,33 @@
+[project]
+name = "vidtoolz-volume"
+version = "0.0.1"
+description = "Increase decrease volume"
+readme = "README.md"
+authors = [{name = "Sukhbinder Singh"}]
+license = {text = "Apache-2.0"}
+classifiers = [
+    "License :: OSI Approved :: Apache Software License"
+]
+dependencies = [
+    "vidtoolz",
+]
+
+[project.urls]
+Homepage = "https://github.com/sukhbinder/vidtoolz-volume"
+Changelog = "https://github.com/sukhbinder/vidtoolz-volume/releases"
+Issues = "https://github.com/sukhbinder/vidtoolz-volume/issues"
+CI = "https://github.com/sukhbinder/vidtoolz-volume/actions"
+
+[project.entry-points."vidtoolz_plugins"]
+volume = "vidtoolz_volume:volume_plugin"
+
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
