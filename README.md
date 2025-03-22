@@ -24,7 +24,22 @@ vidtoolz install vidtoolz-volume
 
 type ``vid volume --help`` to get help
 
+```bash
+usage: vidtoolz volume [-h] [-o OUTPUT] input_video volume_db
 
+Increase decrease volume
+
+positional arguments:
+  input_video           Path to the input video file
+  volume_db             Volume adjustment in dB (e.g., 3 for +3dB, -3 for
+                        -3dB)
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -o OUTPUT, --output OUTPUT
+                        Output video file name (optional)
+
+```
 
 ## Development
 
