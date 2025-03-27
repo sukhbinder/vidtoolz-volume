@@ -30,10 +30,22 @@ def create_parser(subparser):
         help="Volume adjustment in dB (e.g., 3 for +3dB, -3 for -3dB)",
     )
     parser.add_argument(
-        "-o", "--output", type=str, help="Output video file name (optional)"
+        "-o", "--output", type=str, default = None,  help="Output video file name (optional)"
     )
     return parser
 
+
+def determine_output_path(input_file, output_file):
+    input_dir, input_filename = os.path.split(input_file)
+    name, _ = os.path.splitext(input_filename)
+    
+    if output_file:
+        output_dir, output_filename = os.path.split(output_file)
+        if not output_dir:  # If no directory is specified, use input file's directory
+            return os.path.join(input_dir, output_filename)
+        return output_file
+    else:
+        return os.path.join(input_dir, f"{name}_volume.mp4")
 
 class ViztoolzPlugin:
     """Increase decrease volume"""
@@ -46,17 +58,9 @@ class ViztoolzPlugin:
         self.parser.set_defaults(func=self.run)
 
     def run(self, args):
-        # Get the directory of the input video
-        input_dir = os.path.dirname(args.input_video)
-        # If output is not provided, use the input video name with a modified extension
-        if args.output:
-            output_video = args.output
-        else:
-            output_video = os.path.join(
-                input_dir, f"output_{os.path.basename(args.input_video)}"
-            )
+        output = determine_output_path(args.input_video,args.output )
 
-        adjust_volume(args.input_video, args.volume_db, output_video)
+        adjust_volume(args.input_video, args.volume_db, output)
 
     def hello(self, args):
         # this routine will be called when "vidtoolz "volume is called."
